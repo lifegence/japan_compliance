@@ -26,7 +26,7 @@ ERPNext のインド税制対応で事実上の標準となっている
 
 | アプリ | 領域ID | 内容 |
 | :--- | :--- | :--- |
-| [`japan_hr_compliance`](https://github.com/lifegence/japan-hr-compliance) | JP-WHT ほか | 人事労務（雇用契約・社会保険・休暇・給与・源泉所得税）。HRMS に依存 |
+| [`japan_hr_compliance`](https://github.com/lifegence/japan_hr_compliance) | JP-WHT ほか | 人事労務（雇用契約・社会保険・休暇・給与・源泉所得税）。HRMS に依存 |
 | `japan_banking` | JP-BANK | 全銀フォーマット・入金消込・手形・でんさい |
 | `japan_connectors` | JP-INTEGRATION / JP-TAXFILE | 国内会計ソフト連携・e-Tax / eLTAX |
 | `frappe_japanese_translations` | — | 翻訳（フレームワーク層・公開済） |
@@ -52,7 +52,7 @@ v15 では検証していません。
 ## インストール
 
 ```bash
-bench get-app https://github.com/lifegence/japan-compliance
+bench get-app https://github.com/lifegence/japan_compliance
 bench --site <site> install-app japan_compliance
 ```
 
