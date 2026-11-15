@@ -1,0 +1,145 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-10-12 21:00:00.000000",
+ "modified": "2026-10-12 21:00:00.000000",
+ "modified_by": "Administrator",
+ "owner": "Administrator",
+ "doctype": "DocType",
+ "name": "JP Tax Breakdown",
+ "module": "JP Tax",
+ "engine": "InnoDB",
+ "field_order": [
+  "tax_category",
+  "display_label",
+  "rate_code",
+  "tax_rate",
+  "applied_date",
+  "transaction_kind",
+  "inclusion",
+  "rounding_method",
+  "column_break_1",
+  "net_amount",
+  "gross_amount",
+  "computed_tax",
+  "stated_tax",
+  "posted_tax",
+  "deduction_rule",
+  "deduction_ratio",
+  "deductible_tax",
+  "nondeductible_tax"
+ ],
+ "fields": [
+  {
+   "fieldname": "tax_category",
+   "fieldtype": "Link",
+   "label": "税区分",
+   "options": "JP Tax Category",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "display_label",
+   "fieldtype": "Data",
+   "label": "帳簿表示",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "rate_code",
+   "fieldtype": "Data",
+   "label": "税率コード"
+  },
+  {
+   "fieldname": "tax_rate",
+   "fieldtype": "Float",
+   "label": "税率 %",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "applied_date",
+   "fieldtype": "Date",
+   "label": "適用日"
+  },
+  {
+   "fieldname": "transaction_kind",
+   "fieldtype": "Data",
+   "label": "取引種別"
+  },
+  {
+   "fieldname": "inclusion",
+   "fieldtype": "Data",
+   "label": "内税／外税"
+  },
+  {
+   "fieldname": "rounding_method",
+   "fieldtype": "Data",
+   "label": "端数処理"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "net_amount",
+   "fieldtype": "Currency",
+   "label": "税抜金額",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "gross_amount",
+   "fieldtype": "Currency",
+   "label": "税込金額"
+  },
+  {
+   "fieldname": "computed_tax",
+   "fieldtype": "Currency",
+   "label": "計算税額"
+  },
+  {
+   "fieldname": "stated_tax",
+   "fieldtype": "Currency",
+   "label": "請求書記載の消費税額"
+  },
+  {
+   "fieldname": "posted_tax",
+   "fieldtype": "Currency",
+   "label": "計上税額",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "deduction_rule",
+   "fieldtype": "Data",
+   "label": "控除割合ルール"
+  },
+  {
+   "fieldname": "deduction_ratio",
+   "fieldtype": "Percent",
+   "label": "控除割合"
+  },
+  {
+   "fieldname": "deductible_tax",
+   "fieldtype": "Currency",
+   "label": "控除対象額"
+  },
+  {
+   "fieldname": "nondeductible_tax",
+   "fieldtype": "Currency",
+   "label": "控除不能額",
+   "in_list_view": 1,
+   "columns": 1
+  }
+ ],
+ "links": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "index_web_pages_for_search": 0,
+ "istable": 1,
+ "editable_grid": 0,
+ "permissions": []
+}

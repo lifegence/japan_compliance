@@ -1,0 +1,101 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-10-13 01:00:00.000000",
+ "modified": "2026-10-13 01:00:00.000000",
+ "modified_by": "Administrator",
+ "owner": "Administrator",
+ "doctype": "DocType",
+ "name": "JP Month Close Check",
+ "module": "JP Close",
+ "engine": "InnoDB",
+ "field_order": [
+  "check_code",
+  "check_name",
+  "severity",
+  "result",
+  "count",
+  "references",
+  "comment",
+  "confirmed_by",
+  "confirmed_on"
+ ],
+ "fields": [
+  {
+   "fieldname": "check_code",
+   "fieldtype": "Data",
+   "label": "項目",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "check_name",
+   "fieldtype": "Data",
+   "label": "検査項目",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 3
+  },
+  {
+   "fieldname": "severity",
+   "fieldtype": "Select",
+   "label": "判定区分",
+   "options": "エラー\n警告\n確認",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "result",
+   "fieldtype": "Select",
+   "label": "結果",
+   "options": "OK\nNG\n未確認\n確認済",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "count",
+   "fieldtype": "Int",
+   "label": "件数",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "references",
+   "fieldtype": "Small Text",
+   "label": "対象",
+   "read_only": 1
+  },
+  {
+   "fieldname": "comment",
+   "fieldtype": "Small Text",
+   "label": "コメント（警告の理由・確認結果）",
+   "in_list_view": 1,
+   "columns": 3
+  },
+  {
+   "fieldname": "confirmed_by",
+   "fieldtype": "Link",
+   "label": "確認者",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "confirmed_on",
+   "fieldtype": "Datetime",
+   "label": "確認日時",
+   "read_only": 1
+  }
+ ],
+ "links": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "index_web_pages_for_search": 0,
+ "istable": 1,
+ "editable_grid": 1,
+ "permissions": []
+}

@@ -1,0 +1,29 @@
+/*
+ * 日本語帳票用フォント（LifegenceJP）。
+ * Noto Sans CJK JP を Shift_JIS の範囲にサブセット化した改変版（SIL Open Font License 1.1）。
+ * 出典・範囲は ../fonts/README.md、再生成は scripts/build_fonts.py。
+ *
+ * 使い方：font-family の先頭に "LifegenceJP" を置き、OS のフォント名は後ろに残す。
+ *
+ * 帳票テンプレートでは、このファイルの @font-face を <style> にそのまま書き写す（<link> は使わない）。
+ * Frappe の wkhtmltopdf はヘッダー・フッター（#header-html・#footer-html）に <style> しか引き継がないため。
+ * 書き写した内容がこのファイルと一致することは tests/test_print_fonts.py で確かめている。
+ *
+ * URL の書き方の決まり（PDF 生成時に解決されるように）：
+ * - サイトのルートからのパス（/assets/...）にする。wkhtmltopdf では Frappe（scrub_urls）が
+ *   サイトの絶対 URL に置き換え、Chrome とブラウザの印刷プレビューではページの URL（サイト）から解決される。
+ * - 「src: url(...)」の後ろに format() を書かない。scrub_urls は置き換えた url() の直後に
+ *   「 !important」を付けるので、format() が続くと宣言が壊れる。
+ */
+@font-face {
+	font-family: "LifegenceJP";
+	src: url("/assets/japan_compliance/fonts/LifegenceJP-Regular.ttf");
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: "LifegenceJP";
+	src: url("/assets/japan_compliance/fonts/LifegenceJP-Bold.ttf");
+	font-weight: bold;
+	font-style: normal;
+}

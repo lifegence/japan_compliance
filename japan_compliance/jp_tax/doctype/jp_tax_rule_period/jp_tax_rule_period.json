@@ -1,0 +1,139 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-10-12 21:00:00.000000",
+ "modified": "2026-10-12 21:00:00.000000",
+ "modified_by": "Administrator",
+ "owner": "Administrator",
+ "doctype": "DocType",
+ "name": "JP Tax Rule Period",
+ "module": "JP Tax",
+ "engine": "InnoDB",
+ "field_order": [
+  "rule_code",
+  "rule_name",
+  "rule_type",
+  "value",
+  "column_break_1",
+  "valid_from",
+  "valid_to",
+  "period_start_from",
+  "period_start_to",
+  "description"
+ ],
+ "fields": [
+  {
+   "fieldname": "rule_code",
+   "fieldtype": "Data",
+   "label": "ルールコード",
+   "reqd": 1,
+   "unique": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "rule_name",
+   "fieldtype": "Data",
+   "label": "名称",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "rule_type",
+   "fieldtype": "Select",
+   "label": "種類",
+   "options": "控除割合\n上限\n少額特例\nその他",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "value",
+   "fieldtype": "Float",
+   "label": "値",
+   "description": "控除割合は %、上限は円（税込）",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "valid_from",
+   "fieldtype": "Date",
+   "label": "適用開始日（取引日）"
+  },
+  {
+   "fieldname": "valid_to",
+   "fieldtype": "Date",
+   "label": "適用終了日（取引日）"
+  },
+  {
+   "fieldname": "period_start_from",
+   "fieldtype": "Date",
+   "label": "課税期間の開始日（下限）",
+   "description": "上限（CAP-*）のみで使用"
+  },
+  {
+   "fieldname": "period_start_to",
+   "fieldtype": "Date",
+   "label": "課税期間の開始日（上限）"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "内容"
+  }
+ ],
+ "links": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "index_web_pages_for_search": 0,
+ "autoname": "field:rule_code",
+ "naming_rule": "By fieldname",
+ "title_field": "rule_name",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "Accounts Manager",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "Accounts User",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  },
+  {
+   "role": "Auditor",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  }
+ ],
+ "track_changes": 1
+}

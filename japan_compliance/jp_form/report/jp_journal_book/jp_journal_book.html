@@ -1,0 +1,57 @@
+{%
+	const yen = (v) => (v === null || v === undefined || v === "") ? "" : (v < 0 ? "△" + Math.abs(Math.round(v)).toLocaleString() : Math.round(v).toLocaleString());
+	const ymd = (v) => v ? String(v).slice(0, 10).replace(/-/g, "/") : "";
+	const cols = columns.filter((c) => !c.hidden);
+	const num = (c) => ["Currency", "Float", "Int", "Percent"].includes(c.fieldtype);
+	const cell = (row, c) => {
+		const v = row[c.fieldname];
+		if (c.fieldtype === "Currency") return yen(v);
+		if (c.fieldtype === "Date") return ymd(v);
+		return v === null || v === undefined ? "" : v;
+	};
+	const now = frappe.datetime.now_datetime().replace(/-/g, "/");
+%}
+<style>
+	/* 同梱フォント：public/css/jp_print_fonts.css の @font-face をそのまま書き写す（フッターにも効かせるため） */
+	@font-face {
+		font-family: "LifegenceJP";
+		src: url("/assets/japan_compliance/fonts/LifegenceJP-Regular.ttf");
+		font-weight: normal;
+		font-style: normal;
+	}
+	@font-face {
+		font-family: "LifegenceJP";
+		src: url("/assets/japan_compliance/fonts/LifegenceJP-Bold.ttf");
+		font-weight: bold;
+		font-style: normal;
+	}
+	.jp-report, .jp-print-footer { font-family: "LifegenceJP", "Noto Sans CJK JP", "IPAexGothic", "Hiragino Sans", sans-serif; }
+	.jp-report { font-size: 9pt; }
+	.jp-report h2 { text-align: center; font-size: 15pt; margin: 0 0 3mm; }
+	.jp-report .meta { display: flex; justify-content: space-between; margin-bottom: 2mm; }
+	.jp-report table { width: 100%; border-collapse: collapse; }
+	.jp-report th, .jp-report td { border: 1px solid #999; padding: 1mm 1.5mm; }
+	.jp-report th { background: #eee; font-weight: normal; }
+	.jp-report thead { display: table-header-group; }
+	.jp-report tr { page-break-inside: avoid; }
+</style>
+<div class="jp-report">
+	<h2>仕訳帳</h2>
+	<div class="meta">
+		<div>{%= filters.company || "" %}　期間：{%= ymd(filters.from_date) %} 〜 {%= ymd(filters.to_date) %}</div>
+		<div>出力日時：{%= now %}</div>
+	</div>
+	<table>
+		<thead><tr>{% for (const c of cols) { %}<th>{%= c.label %}</th>{% } %}</tr></thead>
+		<tbody>
+		{% for (const row of data) { %}
+			<tr style="{%= row.bold ? "font-weight:bold" : "" %}">
+			{% for (const c of cols) { %}<td style="text-align:{%= num(c) ? "right" : "left" %}">{%= cell(row, c) %}</td>{% } %}
+			</tr>
+		{% } %}
+		</tbody>
+	</table>
+	<div id="footer-html" class="visible-pdf">
+		<div class="jp-print-footer" style="text-align:center; font-size:8pt;">仕訳帳　<span class="page"></span> / <span class="topage"></span></div>
+	</div>
+</div>

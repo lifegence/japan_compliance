@@ -1,0 +1,140 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-10-12 21:00:00.000000",
+ "modified": "2026-10-12 21:00:00.000000",
+ "modified_by": "Administrator",
+ "owner": "Administrator",
+ "doctype": "DocType",
+ "name": "JP Tax Rate",
+ "module": "JP Tax",
+ "engine": "InnoDB",
+ "field_order": [
+  "rate_code",
+  "rate_name",
+  "rate",
+  "national_rate",
+  "local_rate",
+  "column_break_1",
+  "valid_from",
+  "valid_to",
+  "enabled",
+  "note"
+ ],
+ "fields": [
+  {
+   "fieldname": "rate_code",
+   "fieldtype": "Select",
+   "label": "税率コード",
+   "options": "\nSTD10\nRED8\nOLD8\nOLD5\nOLD3\nZERO",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "rate_name",
+   "fieldtype": "Data",
+   "label": "名称",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "rate",
+   "fieldtype": "Float",
+   "label": "税率（合計）%",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "national_rate",
+   "fieldtype": "Float",
+   "label": "国税分 %"
+  },
+  {
+   "fieldname": "local_rate",
+   "fieldtype": "Float",
+   "label": "地方税分 %"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "valid_from",
+   "fieldtype": "Date",
+   "label": "適用開始日",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "valid_to",
+   "fieldtype": "Date",
+   "label": "適用終了日",
+   "in_list_view": 1,
+   "description": "空欄は終了日なし"
+  },
+  {
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "有効",
+   "default": "1"
+  },
+  {
+   "fieldname": "note",
+   "fieldtype": "Small Text",
+   "label": "備考"
+  }
+ ],
+ "links": [],
+ "sort_field": "valid_from",
+ "sort_order": "DESC",
+ "states": [],
+ "index_web_pages_for_search": 0,
+ "autoname": "format:{rate_code}-{valid_from}",
+ "naming_rule": "Expression",
+ "title_field": "rate_name",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "Accounts Manager",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "Accounts User",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  },
+  {
+   "role": "Auditor",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  }
+ ],
+ "track_changes": 1
+}

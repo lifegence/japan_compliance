@@ -1,0 +1,120 @@
+{#- 適格請求書（JP）：インボイス要件 5章のレイアウト、記載事項 6 項目（2.1）、返還・修正インボイス（INV-20〜31） -#}
+{%- set company = frappe.get_doc("Company", doc.company) -%}
+{%- set is_return = doc.is_return -%}
+{%- set honorific = frappe.db.get_value("Customer", doc.customer, "jp_honorific") or "御中" -%}
+{%- set has_reduced = doc.items | selectattr("jp_tax_category", "defined") | map(attribute="jp_tax_category") | select("string") | select("in", ["S-TAX-8R"]) | list -%}
+{%- set address = frappe.db.get_value("Dynamic Link", {"link_doctype": "Company", "link_name": doc.company, "parenttype": "Address"}, "parent") -%}
+{%- set bank = frappe.db.get_value("Bank Account", {"company": doc.company, "is_company_account": 1, "is_default": 1}, ["bank", "branch_code", "bank_account_no", "account_name"], as_dict=1) -%}
+<style>
+	/* 同梱フォント：public/css/jp_print_fonts.css の @font-face をそのまま書き写す（フッターにも効かせるため） */
+	@font-face {
+		font-family: "LifegenceJP";
+		src: url("/assets/japan_compliance/fonts/LifegenceJP-Regular.ttf");
+		font-weight: normal;
+		font-style: normal;
+	}
+	@font-face {
+		font-family: "LifegenceJP";
+		src: url("/assets/japan_compliance/fonts/LifegenceJP-Bold.ttf");
+		font-weight: bold;
+		font-style: normal;
+	}
+	.jpinv, .jp-print-footer { font-family: "LifegenceJP", "Noto Sans CJK JP", "IPAexGothic", "Hiragino Sans", sans-serif; }
+	.jpinv { font-size: 9.5pt; color: #111; }
+	.jpinv h1 { text-align: center; font-size: 18pt; letter-spacing: 0.4em; margin: 0 0 4mm; }
+	.jpinv .sub { text-align: center; font-size: 10pt; margin-top: -2mm; margin-bottom: 4mm; }
+	.jpinv table { width: 100%; border-collapse: collapse; }
+	.jpinv .head td { vertical-align: top; }
+	.jpinv .to { font-size: 13pt; border-bottom: 1px solid #111; padding-bottom: 1mm; }
+	.jpinv .issuer { text-align: right; line-height: 1.6; }
+	.jpinv .total { font-size: 13pt; border: 1.5px solid #111; padding: 2mm 3mm; margin: 4mm 0; width: 60%; }
+	.jpinv .lines th, .jpinv .lines td, .jpinv .tax th, .jpinv .tax td { border: 1px solid #888; padding: 1.2mm 1.5mm; }
+	.jpinv .lines th, .jpinv .tax th { background: #eee; font-weight: normal; }
+	.jpinv .lines thead { display: table-header-group; }
+	.jpinv .lines tr { page-break-inside: avoid; }
+	.jpinv .r { text-align: right; white-space: nowrap; }
+	.jpinv .info td:first-child { white-space: nowrap; width: 32%; padding-right: 3mm; }
+	.jpinv .c { text-align: center; }
+	.jpinv .tax { width: 70%; margin-left: 30%; margin-top: 3mm; page-break-inside: avoid; }
+	.jpinv .note { font-size: 8.5pt; margin-top: 2mm; }
+	.jpinv .box { border: 1px solid #888; padding: 2mm; margin-top: 3mm; page-break-inside: avoid; }
+</style>
+<div class="jpinv">
+	<h1>{% if is_return %}返還請求書{% else %}請求書{% endif %}</h1>
+	{%- if doc.amended_from %}<div class="sub">（修正インボイス）</div>{% endif %}
+
+	<table class="head"><tr>
+		<td style="width:55%">
+			<div class="to">{{ doc.customer_name }} {{ honorific }}</div>
+			<table class="info" style="margin-top:3mm; width:95%">
+				<tr><td>{{ "返還請求書番号" if is_return else "請求書番号" }}</td><td>{{ doc.name }}</td></tr>
+				<tr><td>発行日</td><td>{{ jp_date(doc.posting_date) }}</td></tr>
+				{%- if not is_return and doc.due_date %}<tr><td>お支払期限</td><td>{{ jp_date(doc.due_date) }}</td></tr>{% endif %}
+				{%- if is_return %}
+				<tr><td>基となった請求書</td><td>
+					{%- if doc.return_against %}{{ doc.return_against }}（{{ jp_date(frappe.db.get_value("Sales Invoice", doc.return_against, "posting_date")) }}）{% endif %}
+					{%- if doc.jp_original_period %}{{ " " if doc.return_against }}{{ doc.jp_original_period }}{% endif %}
+				</td></tr>
+				{%- endif %}
+			</table>
+		</td>
+		<td class="issuer">
+			<div style="font-size:11pt"><b>{{ company.company_name }}</b></div>
+			{%- if address %}{% set a = frappe.get_doc("Address", address) %}<div>〒{{ a.pincode or "" }} {{ a.state or "" }}{{ a.city or "" }}{{ a.address_line1 or "" }}{{ a.address_line2 or "" }}</div>{% if a.phone %}<div>TEL {{ a.phone }}</div>{% endif %}{% endif %}
+			<div>登録番号 {{ doc.jp_issuer_registration_number or "" }}</div>
+		</td>
+	</tr></table>
+
+	<div class="total">{{ "ご返金額（税込）" if is_return else "ご請求金額（税込）" }}　<b>¥{{ jp_yen(((doc.rounded_total or doc.grand_total) | abs) if is_return else (doc.rounded_total or doc.grand_total)) }}</b></div>
+
+	<table class="lines">
+		<thead><tr>
+			<th style="width:12%">取引日</th><th>品目</th><th style="width:7%">数量</th><th style="width:7%">単位</th>
+			<th style="width:12%">単価</th><th style="width:14%">金額（{{ "税込" if doc.jp_tax_inclusive else "税抜" }}）</th><th style="width:11%">税率</th>
+		</tr></thead>
+		<tbody>
+		{%- for item in doc.items %}
+			<tr>
+				<td class="c">{{ jp_date(doc.jp_transaction_date or doc.posting_date) }}</td>
+				<td>{{ item.item_name }}{% if is_reduced(item) %} ※{% endif %}</td>
+				<td class="r">{{ jp_yen(item.qty) if item.qty == item.qty|int else item.qty }}</td>
+				<td class="c">{{ item.uom or "" }}</td>
+				<td class="r">{{ jp_yen(item.rate) }}</td>
+				<td class="r">{{ jp_yen(item.amount) }}</td>
+				<td class="c" style="white-space:nowrap">
+					{%- set row = doc.jp_tax_breakdown | selectattr("tax_category", "equalto", item.jp_tax_category) | first -%}
+					{{ jp_rate_label(row) if row else "" }}
+				</td>
+			</tr>
+		{%- endfor %}
+		</tbody>
+	</table>
+
+	<table class="tax">
+		<thead><tr><th>税率区分</th><th>対象金額（税抜）</th><th>消費税額</th><th>税込金額</th></tr></thead>
+		<tbody>
+		{%- for row in doc.jp_tax_breakdown %}
+			<tr>
+				<td class="c">{{ jp_rate_label(row) }}</td>
+				<td class="r">{{ jp_yen(row.net_amount) }}</td>
+				<td class="r">{{ jp_yen(row.posted_tax) if row.tax_rate else "—" }}</td>
+				<td class="r">{{ jp_yen(row.gross_amount) }}</td>
+			</tr>
+		{%- endfor %}
+		</tbody>
+	</table>
+
+	<div class="note">
+		{%- if has_reduced %}※は軽減税率（8%）対象です。　{% endif -%}
+		消費税額は税率ごとに合計した金額に対して1回端数処理しています。
+		{%- if doc.amended_from %}<br>本書は {{ doc.amended_from }} を修正し再交付するものです。{% endif %}
+	</div>
+
+	{%- if bank and not is_return %}
+	<div class="box">お振込先：{{ bank.bank }} {{ bank.branch_code or "" }}　口座番号 {{ bank.bank_account_no or "" }}　名義 {{ bank.account_name or "" }}</div>
+	{%- endif %}
+	{%- if doc.terms %}<div class="box">{{ doc.terms }}</div>{% endif %}
+</div>
+<div id="footer-html" class="visible-pdf">
+	<div class="jp-print-footer" style="text-align:center; font-size:8pt;">{{ doc.name }}　<span class="page"></span> / <span class="topage"></span></div>
+</div>

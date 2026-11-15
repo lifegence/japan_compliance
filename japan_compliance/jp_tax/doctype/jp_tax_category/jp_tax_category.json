@@ -1,0 +1,166 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-10-12 21:00:00.000000",
+ "modified": "2026-11-15 12:00:00.000000",
+ "modified_by": "Administrator",
+ "owner": "Administrator",
+ "doctype": "DocType",
+ "name": "JP Tax Category",
+ "module": "JP Tax",
+ "engine": "InnoDB",
+ "field_order": [
+  "code",
+  "category_name",
+  "direction",
+  "tax_type",
+  "rate_code",
+  "column_break_1",
+  "is_nonregistered",
+  "requires_reason",
+  "ratio_treatment",
+  "report_bucket",
+  "enabled",
+  "phase1",
+  "description"
+ ],
+ "fields": [
+  {
+   "fieldname": "code",
+   "fieldtype": "Data",
+   "label": "区分コード",
+   "reqd": 1,
+   "unique": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "category_name",
+   "fieldtype": "Data",
+   "label": "区分名",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "direction",
+   "fieldtype": "Select",
+   "label": "売上／仕入",
+   "options": "売上\n仕入",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "tax_type",
+   "fieldtype": "Select",
+   "label": "課税区分",
+   "options": "課税\n免税\n非課税\n不課税",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "rate_code",
+   "fieldtype": "Select",
+   "label": "税率コード",
+   "options": "\nSTD10\nRED8\nOLD8\nOLD5\nOLD3\nZERO"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "is_nonregistered",
+   "fieldtype": "Check",
+   "label": "免税事業者等からの仕入（経過措置）"
+  },
+  {
+   "fieldname": "requires_reason",
+   "fieldtype": "Check",
+   "label": "選択時に理由の入力を必須にする",
+   "description": "旧税率（経過措置）など"
+  },
+  {
+   "fieldname": "ratio_treatment",
+   "fieldtype": "Select",
+   "label": "課税売上割合",
+   "options": "\n分子・分母\n分母のみ\n分母に5%\n算入しない"
+  },
+  {
+   "fieldname": "report_bucket",
+   "fieldtype": "Data",
+   "label": "申告書上の集計先"
+  },
+  {
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "有効",
+   "default": "1",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "phase1",
+   "fieldtype": "Select",
+   "label": "採用区分",
+   "options": "採用\n任意\n対象外"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "説明"
+  }
+ ],
+ "links": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "index_web_pages_for_search": 0,
+ "autoname": "field:code",
+ "naming_rule": "By fieldname",
+ "title_field": "category_name",
+ "search_fields": "category_name",
+ "show_title_field_in_link": 1,
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "Accounts Manager",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "Accounts User",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  },
+  {
+   "role": "Auditor",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  }
+ ],
+ "track_changes": 1
+}

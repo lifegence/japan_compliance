@@ -1,0 +1,54 @@
+{
+ "actions": [],
+ "creation": "2026-10-13 02:00:00.000000",
+ "modified": "2026-11-15 12:00:00.000000",
+ "modified_by": "Administrator",
+ "owner": "Administrator",
+ "doctype": "DocType",
+ "name": "JP Compliance Settings",
+ "module": "JP Audit",
+ "issingle": 1,
+ "engine": "InnoDB",
+ "track_changes": 1,
+ "field_order": [
+  "permission_model",
+  "model_note"
+ ],
+ "fields": [
+  {
+   "fieldname": "permission_model",
+   "fieldtype": "Select",
+   "label": "会計伝票の権限の型",
+   "options": "分離型\n一体型",
+   "default": "分離型",
+   "reqd": 1,
+   "description": "分離型：経理担当は起票・保存のみ、提出・取消・修正は経理責任者。一体型：経理担当も提出・取消・修正できる（月次の事後確認で補う）"
+  },
+  {
+   "fieldname": "model_note",
+   "fieldtype": "HTML",
+   "label": "",
+   "options": "<p>会計事務所の担当者には「Accounts User」と「会計事務所（記帳代行）」を、閲覧のみの場合は「Auditor」を付与します。</p>"
+  }
+ ],
+ "links": [],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "Accounts Manager",
+   "read": 1
+  },
+  {
+   "role": "Auditor",
+   "read": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

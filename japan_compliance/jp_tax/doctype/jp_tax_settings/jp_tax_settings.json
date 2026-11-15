@@ -1,0 +1,248 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-10-12 21:00:00.000000",
+ "modified": "2026-11-15 12:00:00.000000",
+ "modified_by": "Administrator",
+ "owner": "Administrator",
+ "doctype": "DocType",
+ "name": "JP Tax Settings",
+ "module": "JP Tax",
+ "engine": "InnoDB",
+ "field_order": [
+  "company",
+  "enabled",
+  "registration_number",
+  "section_calc",
+  "sales_calc_method",
+  "purchase_calc_method",
+  "default_tax_inclusion",
+  "column_break_1",
+  "sales_rounding",
+  "purchase_rounding",
+  "nondeductible_method",
+  "section_period",
+  "tax_period_start",
+  "tax_period_end",
+  "column_break_2",
+  "small_amount_special",
+  "section_accounts",
+  "sales_tax_account",
+  "purchase_tax_account",
+  "column_break_3",
+  "nondeductible_loss_account",
+  "section_close",
+  "monthly_lock_mode",
+  "disabled_close_checks"
+ ],
+ "fields": [
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "会社",
+   "options": "Company",
+   "reqd": 1,
+   "unique": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "日本の消費税計算を使う",
+   "default": "1",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "registration_number",
+   "fieldtype": "Data",
+   "label": "適格請求書発行事業者の登録番号",
+   "description": "T＋13桁"
+  },
+  {
+   "fieldname": "section_calc",
+   "fieldtype": "Section Break",
+   "label": "税額の計算"
+  },
+  {
+   "fieldname": "sales_calc_method",
+   "fieldtype": "Select",
+   "label": "売上税額の計算方法",
+   "options": "割戻し計算\n積上げ計算",
+   "default": "割戻し計算",
+   "reqd": 1
+  },
+  {
+   "fieldname": "purchase_calc_method",
+   "fieldtype": "Select",
+   "label": "仕入税額の計算方法",
+   "options": "請求書等積上げ\n帳簿積上げ\n割戻し計算",
+   "default": "請求書等積上げ",
+   "reqd": 1
+  },
+  {
+   "fieldname": "default_tax_inclusion",
+   "fieldtype": "Select",
+   "label": "既定の内税／外税",
+   "options": "外税\n内税",
+   "default": "外税",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "sales_rounding",
+   "fieldtype": "Select",
+   "label": "売上伝票の消費税額の端数処理",
+   "options": "切捨て\n四捨五入\n切上げ",
+   "default": "切捨て",
+   "reqd": 1
+  },
+  {
+   "fieldname": "purchase_rounding",
+   "fieldtype": "Select",
+   "label": "仕入伝票の消費税額の端数処理",
+   "options": "切捨て\n四捨五入",
+   "default": "切捨て",
+   "reqd": 1
+  },
+  {
+   "fieldname": "nondeductible_method",
+   "fieldtype": "Select",
+   "label": "控除不能分の処理（免税事業者等からの仕入）",
+   "options": "本体価格に含める\n仮払消費税等に含め決算で雑損失",
+   "default": "本体価格に含める",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_period",
+   "fieldtype": "Section Break",
+   "label": "課税期間・特例"
+  },
+  {
+   "fieldname": "tax_period_start",
+   "fieldtype": "Date",
+   "label": "課税期間の開始日",
+   "description": "一の者からの課税仕入れの上限の集計単位"
+  },
+  {
+   "fieldname": "tax_period_end",
+   "fieldtype": "Date",
+   "label": "課税期間の終了日"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "small_amount_special",
+   "fieldtype": "Check",
+   "label": "少額特例の対象事業者",
+   "description": "オンにすると、税込1万円未満の課税仕入の請求書で少額特例の案内を表示します（表示のみ）"
+  },
+  {
+   "fieldname": "section_accounts",
+   "fieldtype": "Section Break",
+   "label": "勘定科目"
+  },
+  {
+   "fieldname": "sales_tax_account",
+   "fieldtype": "Link",
+   "label": "仮受消費税等",
+   "options": "Account",
+   "reqd": 1
+  },
+  {
+   "fieldname": "purchase_tax_account",
+   "fieldtype": "Link",
+   "label": "仮払消費税等",
+   "options": "Account",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "nondeductible_loss_account",
+   "fieldtype": "Link",
+   "label": "雑損失（控除不能分の振替先）",
+   "options": "Account"
+  },
+  {
+   "fieldname": "section_close",
+   "fieldtype": "Section Break",
+   "label": "月次締め"
+  },
+  {
+   "fieldname": "monthly_lock_mode",
+   "fieldtype": "Select",
+   "label": "月次ロックの運用",
+   "options": "月次でロックする\n期中はロックしない",
+   "default": "月次でロックする",
+   "reqd": 1,
+   "description": "「期中はロックしない」では、締めを確定しても凍結日は進まず、締め遅れの通知も出ない。管理者は任意の月末に凍結日を進められる。変更は管理者のみ"
+  },
+  {
+   "fieldname": "disabled_close_checks",
+   "fieldtype": "Small Text",
+   "label": "使わない締め前チェック（警告・確認）",
+   "description": "コードをカンマ区切りで入力（例：C10,C13）。エラーの項目（C01〜C04）は無効にできない"
+  }
+ ],
+ "links": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "index_web_pages_for_search": 0,
+ "autoname": "field:company",
+ "naming_rule": "By fieldname",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "Accounts Manager",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "Accounts User",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  },
+  {
+   "role": "Auditor",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  }
+ ],
+ "track_changes": 1
+}

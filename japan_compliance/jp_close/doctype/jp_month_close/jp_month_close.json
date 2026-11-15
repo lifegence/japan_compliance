@@ -1,0 +1,232 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-10-13 01:00:00.000000",
+ "modified": "2026-10-13 01:00:00.000000",
+ "modified_by": "Administrator",
+ "owner": "Administrator",
+ "doctype": "DocType",
+ "name": "JP Month Close",
+ "module": "JP Close",
+ "engine": "InnoDB",
+ "field_order": [
+  "title",
+  "company",
+  "company_abbr",
+  "period_start",
+  "period_end",
+  "period_label",
+  "column_break_1",
+  "status",
+  "frozen",
+  "section_checks",
+  "checked_by",
+  "checked_on",
+  "checks",
+  "section_close",
+  "closed_by",
+  "closed_on",
+  "column_break_2",
+  "reopen_reason",
+  "reopened_by",
+  "reopened_on",
+  "reopen_log"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "表題",
+   "read_only": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "会社",
+   "options": "Company",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "company_abbr",
+   "fieldtype": "Data",
+   "label": "会社略称",
+   "read_only": 1,
+   "hidden": 1,
+   "fetch_from": "company.abbr"
+  },
+  {
+   "fieldname": "period_start",
+   "fieldtype": "Date",
+   "label": "対象月（初日）",
+   "reqd": 1,
+   "set_only_once": 1,
+   "description": "月の初日を指定"
+  },
+  {
+   "fieldname": "period_end",
+   "fieldtype": "Date",
+   "label": "対象月（末日）",
+   "read_only": 1
+  },
+  {
+   "fieldname": "period_label",
+   "fieldtype": "Data",
+   "label": "対象月",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "状態",
+   "options": "未チェック\nチェック済\n確定\n解除",
+   "default": "未チェック",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "frozen",
+   "fieldtype": "Check",
+   "label": "凍結済",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "section_checks",
+   "fieldtype": "Section Break",
+   "label": "締め前チェック"
+  },
+  {
+   "fieldname": "checked_by",
+   "fieldtype": "Link",
+   "label": "チェック実行者",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "checked_on",
+   "fieldtype": "Datetime",
+   "label": "チェック実行日時",
+   "read_only": 1
+  },
+  {
+   "fieldname": "checks",
+   "fieldtype": "Table",
+   "label": "チェック結果",
+   "options": "JP Month Close Check"
+  },
+  {
+   "fieldname": "section_close",
+   "fieldtype": "Section Break",
+   "label": "確定・解除"
+  },
+  {
+   "fieldname": "closed_by",
+   "fieldtype": "Link",
+   "label": "確定者",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "closed_on",
+   "fieldtype": "Datetime",
+   "label": "確定日時",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break",
+   "label": ""
+  },
+  {
+   "fieldname": "reopen_reason",
+   "fieldtype": "Small Text",
+   "label": "解除の理由",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reopened_by",
+   "fieldtype": "Link",
+   "label": "解除者",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reopened_on",
+   "fieldtype": "Datetime",
+   "label": "解除日時",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reopen_log",
+   "fieldtype": "Small Text",
+   "label": "解除の履歴",
+   "read_only": 1
+  }
+ ],
+ "links": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "index_web_pages_for_search": 0,
+ "autoname": "format:MC-{company_abbr}-{period_label}",
+ "naming_rule": "Expression",
+ "title_field": "title",
+ "is_submittable": 0,
+ "track_changes": 1,
+ "search_fields": "company,period_label",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "Accounts Manager",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "Accounts User",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "Auditor",
+   "read": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  }
+ ]
+}
