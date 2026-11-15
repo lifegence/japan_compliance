@@ -32,10 +32,10 @@ Frappe Framework (MIT)
 
 ## 4. 命名
 
-- リポジトリ: `japan-compliance`（ハイフン）
-- アプリのモジュール名: `japan_compliance`（アンダースコア）
+- リポジトリ・アプリのモジュール名とも `japan_compliance`（アンダースコア）
 
-`resilient-tech/india-compliance` ／ `india_compliance` と同じ形。
+`required_apps` は Frappe 本体がアプリ名で、Press と bench が GitHub のリポジトリ名で照合するため、
+両者を一致させる（frappe/hrms、frappe/erpnext と同じ形）。
 
 ## 5. ライセンス
 
