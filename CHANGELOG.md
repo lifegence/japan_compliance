@@ -3,7 +3,14 @@
 このファイルの形式は [Keep a Changelog](https://keepachangelog.com/ja/1.1.0/) に、
 版の付け方は [Semantic Versioning](https://semver.org/lang/ja/) に従います。
 
-## [0.1.0] - 未リリース
+## [1.0.0] - 2026-11-16
+
+最初の安定版です。機能は 0.1.0 と同じです。
+
+- 公認会計士による検証（108 項目：差異なし 106、対象外 2）を完了しました
+- README から「本番の会計・申告には使わない」の注意を外しました
+
+## [0.1.0] - 2026-11-15
 
 最初の公開版です。Frappe Framework v16・ERPNext v16 で動作します。
 
@@ -57,4 +64,5 @@
 - 行単位の税額の丸めを無効にする
 - 円の表示を小数なしにする
 
+[1.0.0]: https://github.com/lifegence/japan_compliance/releases/tag/v1.0.0
 [0.1.0]: https://github.com/lifegence/japan_compliance/releases/tag/v0.1.0
